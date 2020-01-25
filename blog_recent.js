@@ -1,21 +1,21 @@
 let http = require('http');
 let fs = require('fs');
 
-const server = http.createServer(function(req,res) {
+let server = http.createServer(function(req,res) {
     getTitle(res);
-}).listen(8000,'127.0.01');
+}).listen(8000,'127.0.0.1');
 
 function getTitle(res) {
     fs.readFile('./titles.json', function(err,data) {
         if(err){
             hadError(err,res)
         }else {
-            getTemplate(JSON.parse(data.toString(), res));
+            getTemplate(JSON.parse(data.toString()),res);
         }
     })
 }
 
-function getTitle(titles, res) {
+function getTemplate(titles, res) {
     fs.readFile('./template.html', function(err,data){
       if(err) {
           hadeError(err,res)
